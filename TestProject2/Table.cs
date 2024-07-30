@@ -69,11 +69,11 @@ namespace TestProject2
             Assert.IsTrue(new FileInfo(path).Length > 0, "CSV file is empty");
         }
 
-        [TearDown]
-        public void TearDown()
-        {
-            // Quit the driver
-            driver.Quit();
-        }
-    }
+		[TearDown]
+		public void TearDown()
+		{
+			driver.Quit();
+			driver.Dispose();
+		}
+	}
 }

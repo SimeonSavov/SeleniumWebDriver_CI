@@ -41,14 +41,14 @@ namespace TestProject1
             divResult = driver.FindElement(By.Id("result"));
         }
 
-        [OneTimeTearDown]
-        public void TearDown()
-        {
-            driver.Quit();
-        }
+		[OneTimeTearDown]
+		public void TearDown()
+		{
+			driver.Quit();
+			driver.Dispose();
+		}
 
-        public void PerformCalculation(string firstNumber, string operation,
-                                        string secondNumber, string expectedResult)
+		public void PerformCalculation(string firstNumber, string operation, string secondNumber, string expectedResult)
         {
             // Click the [Reset] button
             resetBtn.Click();
@@ -75,15 +75,13 @@ namespace TestProject1
             // Assert the expected and actual result text are equal
             Assert.That(divResult.Text, Is.EqualTo(expectedResult));
         }
-
         [Test]
         [TestCase("5", "+ (sum)", "10", "Result: 15")]
         [TestCase("3.5", "- (subtract)", "1.2", "Result: 2.3")]
         [TestCase("2e2", "* (multiply)", "1.5", "Result: 300")]
         [TestCase("5", "/ (divide)", "0", "Result: Infinity")]
         [TestCase("invalid", "+ (sum)", "10", "Result: invalid input")]
-        public void TestNumberCalculator(string firstNumber, string operation,
-                                            string secondNumber, string expectedResult)
+        public void TestNumberCalculator(string firstNumber, string operation, string secondNumber, string expectedResult)
         {
             PerformCalculation(firstNumber, operation, secondNumber, expectedResult);
         }
